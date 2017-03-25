@@ -578,6 +578,10 @@
 		"side_bar_visible": false,
 		"status_bar_visible": false
 	},
+	"expanded_folders":
+	[
+		"/C/Users/Amit/Desktop/trydjango"
+	],
 	"file_history":
 	[
 		"/C/Users/Amit/Desktop/blog-api/requirements.txt",
