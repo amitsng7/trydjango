@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hello Word</title>
+</head>
+<body>
+	<h1>{{title}} is working <br/></h1>
+	{% for obj in instance %}
+	<a href='{% url "index" id=obj.id%}'>{{obj.id}}</a><br/> {{obj.title}}<br/>{{obj.updated}}<br/>
+	{% endfor %}
+</body>
+</html>

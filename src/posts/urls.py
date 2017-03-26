@@ -4,7 +4,8 @@ from posts import views
 
 urlpatterns = [
     url(r'^create$', views.post_create),
-    url(r'^index$', views.post_index),
+    url(r'^(?P<id>\d+)/$', views.post_index, name="index"),
+    url(r'^index/$', views.post_index),
     url(r'^delete$', views.post_delete),
     url(r'^update$', views.post_update),
 ]
