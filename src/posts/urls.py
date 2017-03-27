@@ -7,5 +7,5 @@ urlpatterns = [
     url(r'^(?P<id>\d+)/$', views.post_index, name="index"),
     url(r'^index/$', views.post_index),
     url(r'^delete$', views.post_delete),
-    url(r'^update$', views.post_update),
+    url(r'^(?P<id>\d+)/edit$', views.post_update, name="update"),
 ]

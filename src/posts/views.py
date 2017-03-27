@@ -1,13 +1,22 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
+from django.contrib import messages
 from posts.models import Post
+from .form import PostForm
 
 # Create your views here.
 def post_create(request):
+	form = PostForm(request.POST or None)
+	if form.is_valid():
+		instance=form.save(commit=False)
+		instance.save()
+		messages.success(request, "Successfully Created")
+	else:
+		messages.error(request, "Not Successfully Created")
 	context={
-		"title":"create"
+		"form":form
 	}
-	return render(request, "index.html", context)
+	return render(request, "post_create.html", context)
 
 def post_index(request,id=None):
 	if(id==None):
@@ -25,14 +34,24 @@ def post_index(request,id=None):
 		}
 		return render(request, "index.html", context)
 
+def post_update(request, id=None):
+	instance=get_object_or_404(Post, id=id)
+	form=PostForm(request.POST or None, instance=instance)
+	if form.is_valid():
+		instance=form.save(commit=False)
+		instance.save()		
+		messages.success(request, "Successfully Saved")
+	else:
+		messages.error(request, "Not Successfully saved")
+	context={
+		"instance":instance,
+		"title":instance.title,
+		"form":form
+	}
+	return render(request, "post_create.html", context)
+
 def post_delete(request):
 	context={
 		"title":"delete"
-	}
-	return render(request, "index.html", context)
-
-def post_update(request):
-	context={
-		"title":"update"
 	}
 	return render(request, "index.html", context)
