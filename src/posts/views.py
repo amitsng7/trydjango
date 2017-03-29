@@ -1,5 +1,5 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from posts.models import Post
 from .form import PostForm
@@ -50,8 +50,13 @@ def post_update(request, id=None):
 	}
 	return render(request, "post_create.html", context)
 
-def post_delete(request):
-	context={
-		"title":"delete"
-	}
-	return render(request, "index.html", context)
+def post_delete(request, id):
+	instance=get_object_or_404(Post, id=id)
+	instance.delete()
+	messages.success(request, "Successfully deleted")
+	instance=Post.objects.all()
+		context={
+			"instance":instance,
+			"title":"Index All"
+		}
+	return render(request, "indexAll.html", context)
